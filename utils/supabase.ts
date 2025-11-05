@@ -58,15 +58,47 @@ export async function login() {
     if (browserResult.type !== "success") {
       throw new Error("Login cancelled or failed");
     }
-    console.log("✅ Browser flow complete. Waiting for auth listener...");
-    console.log(browserResult);
+    try {
+      const returnedUrl = (browserResult as any).url || "";
+      const hashIndex = returnedUrl.indexOf("#");
+      if (hashIndex !== -1) {
+        const fragment = returnedUrl.substring(hashIndex + 1);
+        const params = Object.fromEntries(new URLSearchParams(fragment));
+        const access_token = params["access_token"];
+        const refresh_token = params["refresh_token"];
+
+        if (access_token) {
+          const { data: sessionData, error: setError } =
+            await supabase.auth.setSession({
+              access_token,
+              refresh_token,
+            } as any);
+
+          if (setError) {
+            console.warn("setSession error:", setError.message || setError);
+          } else {
+            console.log("Session set from URL fragment:", sessionData);
+            return sessionData;
+          }
+        } else {
+          console.warn("No access_token found in redirect URL fragment.");
+        }
+      } else {
+        console.warn("No URL fragment found in redirect URL to parse tokens.");
+      }
+    } catch (err: any) {
+      console.warn(
+        "Failed to parse or set session from redirect URL:",
+        err?.message || err
+      );
+    }
   } catch (err: any) {
     console.error("Supabase login error:", err.message || err);
     return null;
   }
 }
 
-//Logout the current user
+// Logout the current user
 export async function logout() {
   try {
     const { error } = await supabase.auth.signOut();

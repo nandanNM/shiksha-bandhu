@@ -1,29 +1,13 @@
-import { AuthProvider, useAuth } from "@/providers/auth-provider";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useAuth } from "@/providers/auth-provider";
 import { Redirect, Slot } from "expo-router";
 
 export default function AppLayout() {
-  // const { loading, isLogged } = useGlobalContext();
-  const queryClient = new QueryClient();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
 
-  // if (loading) {
-  //   return (
-  //     <SafeAreaView className="bg-white h-full flex justify-center items-center">
-  //       <ActivityIndicator className="text-primary-300" size="large" />
-  //     </SafeAreaView>
-  //   );
-  // }
-
+  console.log("isAuthenticated", isAuthenticated);
   if (!isAuthenticated) {
-    return <Redirect href="/(auth)/sign-in" />;
+    return <Redirect href="../(auth)/sign-in.tsx" />;
   }
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Slot />
-      </AuthProvider>
-    </QueryClientProvider>
-  );
+  return <Slot />;
 }
