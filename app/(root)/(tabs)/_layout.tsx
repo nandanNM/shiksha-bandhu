@@ -1,7 +1,7 @@
-import icons from "@/constants/icons";
 import { Tabs } from "expo-router";
-import React from "react";
 import { Image, ImageSourcePropType, Text, View } from "react-native";
+
+import icons from "@/constants/icons";
 
 const TabIcon = ({
   focused,
@@ -30,6 +30,7 @@ const TabIcon = ({
     </Text>
   </View>
 );
+
 const TabsLayout = () => {
   return (
     <Tabs
@@ -39,7 +40,7 @@ const TabsLayout = () => {
           backgroundColor: "white",
           position: "absolute",
           borderTopColor: "#0061FF1A",
-          borderBottomWidth: 1,
+          borderTopWidth: 1,
           minHeight: 70,
         },
       }}

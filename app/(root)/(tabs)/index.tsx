@@ -4,24 +4,9 @@ import images from "@/constants/images";
 import { useAuth } from "@/providers/auth-provider";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-const getDifficultyColor = (difficulty: string) => {
-  switch (difficulty) {
-    case "Easy":
-    case "Beginner":
-      return { bg: "#10B981", text: "#ECFDF5" };
-    case "Medium":
-    case "Intermediate":
-      return { bg: "#F59E0B", text: "#FFFBEB" };
-    case "Hard":
-    case "Advanced":
-      return { bg: "#EF4444", text: "#FEF2F2" };
-    default:
-      return { bg: "#6B7280", text: "#F9FAFB" };
-  }
-};
+
 export default function Index() {
   const { profile } = useAuth();
-  const difficultyColors = getDifficultyColor("Easy");
   return (
     <SafeAreaView className="h-full bg-white">
       <View className="px-5">
