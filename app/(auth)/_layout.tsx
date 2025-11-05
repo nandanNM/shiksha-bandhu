@@ -7,7 +7,7 @@ export default function AuthLayout() {
   console.log("isAuthenticated", isAuthenticated);
 
   if (isAuthenticated) {
-    return <Redirect href="/(root)/(tabs)" />;
+    return <Redirect href="/" />;
   }
 
   return <Stack screenOptions={{ headerShown: false }} />;

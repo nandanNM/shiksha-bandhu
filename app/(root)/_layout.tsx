@@ -6,7 +6,7 @@ export default function AppLayout() {
 
   console.log("isAuthenticated", isAuthenticated);
   if (!isAuthenticated) {
-    return <Redirect href="../(auth)/sign-in.tsx" />;
+    return <Redirect href="/(auth)/sign-in" />;
   }
 
   return <Slot />;
