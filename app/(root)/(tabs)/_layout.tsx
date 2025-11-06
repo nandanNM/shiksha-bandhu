@@ -1,7 +1,7 @@
-import { Tabs } from "expo-router";
-import { Image, ImageSourcePropType, Text, View } from "react-native";
-
 import icons from "@/constants/icons";
+import { Tabs } from "expo-router";
+import { Image, ImageSourcePropType, View } from "react-native";
+import Animated from "react-native-reanimated";
 
 const TabIcon = ({
   focused,
@@ -19,15 +19,15 @@ const TabIcon = ({
       resizeMode="contain"
       className="size-6"
     />
-    <Text
+    <Animated.Text
       className={`${
         focused
-          ? "text-primary-300 font-rubik-medium"
+          ? "text-primary-300 font-rubik-medium animate-pulse"
           : "text-black-200 font-rubik"
       } text-xs w-full text-center mt-1`}
     >
       {title}
-    </Text>
+    </Animated.Text>
   </View>
 );
 
